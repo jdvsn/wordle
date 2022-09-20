@@ -1,0 +1,83 @@
+== Recreating Wordle
+
+We're going to recreate the basic game in Python.
+https://www.powerlanguage.co.uk/wordle/
+
+== Lessons Learned
+  * Creating and working with classes
+    - https://www.learnpython.org/en/Classes_and_Objects
+    - https://realpython.com/python3-object-oriented-programming/
+    - https://realpython.com/instance-class-and-static-methods-demystified/
+  * Receiving user input
+  * File I/O (reading from files)
+  * Raising and rescuing exceptions
+
+== Constraints
+  1. Run game with `python3 path/to/game.py`
+  2. Words are always only 5 characters. An invalid word length should raise an error
+  3. Player only gets 6 guesses to guess the word
+  4. On each guess, print hints
+    - "!" for every character that is found in the word and in the correct position
+    - "?" for every character that is found in the word but in the wrong position
+    - "_" for every character that is not found in the word
+
+    e.g. guess is "WEARY"
+         hint is "!____": the W is in the word and the correct spot
+
+         guess is "PILLS"
+         hint is "_?___": the I is in the word but the wrong spot
+
+         guess is "VAGUE"
+         hint is "_____": no letters are in the word
+  5. User input should not be case sensitive. "w" == "W"
+  6. On 6 failed guesses, the game should print out the message:
+    "Nice try! The word was: XXXXXX" - with the actual word used.
+  7. On a successful guess, the game should print out the message:
+    "Correct! Great job! You guessed the word in X tries!" with the correct number of tries.
+  8. Handle invalid player word submissions
+    - words with lengths != 5
+    - words with non-letters e.g. "oops!" is not a valid word
+    - words with numbers e.g. "Cool5" is not a valid word
+    - Return a message asking them to try again, do not count the invalid guess as an official guess
+
+== Versions
+v0.1
+  * Game is hardcoded with the word "PHOTO"
+  * Read user input
+    - "read user input python" - google it
+  * No hints are returned to the player
+  * Only exact matches work
+  * On successful guess, display success and exit
+  * Will go on forever until guess is made
+
+v0.2
+  * Game keeps track of number of tries
+  * On 6 failed tries, display fail message and exit game
+
+v0.3
+  * Handle invalid player word submissions
+
+v0.4
+  * On start of game, no longer hardcode word
+    - Game master manually types the 5-letter word
+      - "hide user input python" - google it
+    - invalid word length should return an error message and ask
+      game master to type another word
+
+v0.5
+  * Give feedback to player for each step
+    - "!"
+    - "?"
+    - "_"
+
+v1.0
+  * Source a random word from the file "wordlist.txt"
+    - use the Dictionary class
+    - Game class uses the Dictionary class
+  * On start of game, ask if 1 Player or 2 Players
+    - 1 Player uses a random word from the wordlist
+    - 2 Players uses the game master to submit the word
+
+v1.2
+  * Source all 5 letter words from https://raw.githubusercontent.com/eneko/data-repository/master/data/words.txt
+    - use the "requests" Python library to download this remote file
